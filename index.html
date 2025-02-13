@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>زهرة تنمو</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(to top, #1e3c72, #2a5298);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            position: relative;
+        }
+
+        /* السماء والنجوم */
+        .sky {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle 2s infinite alternate, moveUp linear infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes moveUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-200px); }
+        }
+
+        /* تأثير نمو الزهرة */
+        .flower-container {
+            position: absolute;
+            bottom: -200px;
+            display: flex;
+            justify-content: center;
+            transition: bottom 4s ease-in-out;
+        }
+
+        .flower {
+            width: 150px;
+            opacity: 0;
+            transform: scale(0.5) rotate(-10deg);
+            transition: opacity 2s ease-in-out 3s, transform 2s ease-in-out 3s;
+        }
+
+        /* عند التفعيل */
+        .grow .flower-container {
+            bottom: 50px;
+        }
+
+        .grow .flower {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        /* أيقونة الرسالة */
+        .message-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+        }
+
+        .message-box {
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            background: white;
+            color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sky" id="sky"></div>
+
+    <div class="flower-container" id="flowerContainer">
+        <img src="https://i.imgur.com/QZ7l7Y1.png" alt="زهرة" class="flower">
+    </div>
+
+    <!-- أيقونة الرسالة -->
+    <div class="message-icon" id="messageIcon">💬</div>
+    <div class="message-box" id="messageBox">مرحبا بك! 🌸 استمتع بجمال الطبيعة.</div>
+
+    <script>
+        window.onload = function() {
+            // نمو الزهرة
+            document.getElementById("flowerContainer").classList.add("grow");
+
+            // إضافة النجوم المتحركة
+            let sky = document.getElementById("sky");
+            for (let i = 0; i < 50; i++) {
+                let star = document.createElement("div");
+                star.className = "star";
+                star.style.top = Math.random() * 100 + "%";
+                star.style.left = Math.random() * 100 + "%";
+                star.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                star.style.animationDelay = Math.random() * 5 + "s";
+                sky.appendChild(star);
+            }
+
+            // أيقونة الرسالة
+            let messageIcon = document.getElementById("messageIcon");
+            let messageBox = document.getElementById("messageBox");
+            
+            messageIcon.onclick = function() {
+                messageBox.style.display = messageBox.style.display === "block" ? "none" : "block";
+            };
+        };
+    </script>
+
+</body>
+</html>
